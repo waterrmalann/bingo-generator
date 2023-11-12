@@ -108,12 +108,11 @@ function checkForBingo() {
 createAndShuffleTable();
 
 // Reset button functionality
-resetBtn.addEventListener('click', function () {
-  bingoCount = 0;
-  bingoCounter.textContent = bingoCount;
-  var cells = table.getElementsByTagName("td");
-  for (var i = 0; i < cells.length; i++) {
-    cells[i].classList.remove('strikethrough', 'bingo');
-  }
-  createAndShuffleTable();
+resetBtn.addEventListener("click", function () {
+	bingoCount = 0;
+	bingoCounter.textContent = bingoCount;
+	table.querySelectorAll('td').forEach(cell => {
+		cell.classList.remove("strikethrough", "bingo");
+	});
+	createAndShuffleTable();
 });
