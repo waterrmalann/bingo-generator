@@ -5,33 +5,23 @@ var bingoCounter = document.getElementById("bingoCount");
 
 // Function to create and shuffle the table
 function createAndShuffleTable() {
-  table.innerHTML = ''; // Clear the table
-  var numbers = [];
-  for (var i = 1; i <= 25; i++) {
-    numbers.push(i);
-  }
+	table.innerHTML = ""; // Clear the table
+	const numbers = Array.from({ length: 25 }, (_, index) => index + 1);
 
-  // Shuffle the numbers array
-  for (var i = numbers.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = numbers[i];
-    numbers[i] = numbers[j];
-    numbers[j] = temp;
-  }
+	// Shuffle the numbers array
+	numbers.sort(() => Math.random() - 0.5);
 
-  var count = 0;
-  for (var i = 0; i < 5; i++) {
-    var row = table.insertRow(i);
-    for (var j = 0; j < 5; j++) {
-      var cell = row.insertCell(j);
-      cell.innerHTML = numbers[count];
-      cell.addEventListener('click', function () {
-        this.classList.add('strikethrough');
-        checkForBingo();
-      });
-      count++;
-    }
-  }
+	for (let i = 0; i < 5; i++) {
+		const row = table.insertRow(i);
+		for (let j = 0; j < 5; j++) {
+			const cell = row.insertCell(j);
+			cell.innerHTML = numbers[i * 5 + j];
+			cell.addEventListener("click", () => {
+				cell.classList.add("strikethrough");
+				checkForBingo();
+			});
+		}
+	}
 }
 
 // Check for Bingo occurrence
